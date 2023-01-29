@@ -14,14 +14,14 @@
         $username   = $_POST['username'];
         $password   = $_POST['password'];
         if ($username == '' or $password == '') {
-            $err .= "<li>Silakan masukkan username dan password</li>";
+            $err .= "Silakan masukkan username dan password";
         }
         if (empty($err)) {
             $sql_user = $conn->query("select * from tb_user where username = '$username'");
 
             $username = mysqli_fetch_array($sql_user);
             if ($username['password'] != md5($password)) {
-                $err .= "<li>Akun tidak ditemukan</li>";
+                $err .= "Akun tidak ditemukan";
             }
         }
         if (empty($err)) {
@@ -33,7 +33,7 @@
                 $role[] = $data['_id_role'];
             }
             if (empty($role)) {
-                $err .= "<li>Role Akses Kosong</li>";
+                $err .= "Role Akses Kosong";
             }
         }
         if (empty($err)) {
@@ -53,22 +53,30 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
-    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+
 </head>
 
-<body>
-    <div id="app">
-        <h1>Halaman Login</h1>
-        <?php
-        if ($err) {
-            echo "<ul>$err</ul>";
-        }
-        ?>
-        <form action="" method="post">
-            <input type="text" value="<?php echo $username ?>" name="username" class="input" placeholder="Isikan Username..." /><br /><br />
-            <input type="password" name="password" class="input" placeholder="Isikan Password" /><br /><br />
-            <input type="submit" name="login" value="Masuk Ke Sistem" />
-        </form>
+<body class="">
+    <div class="w-screen h-screen flex flex-col justify-center">
+        <div class="mx-auto w-[700px] border-2 border-blue-500 p-5">
+            <h1 class="text-center mb-3 text-lg font-bold text-gray-700">Halaman Login</h1>
+            <?php
+            if ($err) {
+                echo $err;
+            }
+            ?>
+            <form action="" method="post">
+                <div class="mb-2">
+                    <input type="text" class="w-full p-2 text-gray-500 focus:outline-none border-2 border-blue-500 rounded-md" value="" name="username" class="input" placeholder="Isikan Username..." /><br /><br />
+                </div>
+    
+                <div class="mb-2">
+                    <input type="password" class="w-full p-2 text-gray-500 focus:outline-none border-2 border-blue-500 rounded-md" name="password" class="input" placeholder="Isikan Password" /><br /><br />
+                </div>
+                <input type="submit" name="login" class="p-2 cursor-pointer px-2.5 text-white bg-blue-500" value="Masuk Ke Sistem" />
+            </form>
+        </div>
     </div>
 </body>
 
