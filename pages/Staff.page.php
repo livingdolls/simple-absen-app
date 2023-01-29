@@ -3,6 +3,7 @@
     include("../config/db.php");
 
     // Cek session akses role
+    // Only Staff can access
     if (!in_array("staff", $_SESSION['role_akses'])) {
         echo "Kamu tidak punya akses";
         exit();
